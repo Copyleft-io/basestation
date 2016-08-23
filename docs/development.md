@@ -1,10 +1,6 @@
 # Development
 
-This is the running log for all the configuration implemented for Base Station.
-
-This will outline all the development steps taken to create and configure the application stack.
-
-This is everything that we've done to get the application up and running.
+This is the running log for all the development and configuration implemented for Base Station.
 
 
 ### CHECK DEPENDENCIES
@@ -210,3 +206,88 @@ We're using the [SB ADMIN Bootstrap Theme](https://startbootstrap.com/template-o
 //= require bootstrap
 //= require_tree .
 ```
+
+## START THE APPLICATION
+
+Ok, time to ensure that we have everything wired up correctly before we begin scaffolding
+out our application.
+
+```
+rails server
+```
+
+Go To [URL localhost:3000](http://localhost:3000/)
+
+### Yay! You're on Rails!
+
+
+### AUTHENTICATION (devise)
+
+#### Install Devise
+
+```
+rails g devise:install
+rails g devise:views
+rails g devise user
+rails g devise:controllers users
+rake db:migrate
+```
+
+#### Configure Devise
+```
+# Ensure you have defined root_url to *something* in your config/routes.rb.
+# For example:
+
+   root to: "home#index"
+
+# Ensure you have defined default url options in your environments files. Here
+# is an example of default_url_options appropriate for a development environment
+# in config/environments/development.rb:
+
+config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+
+# Ensure you have flash messages in app/views/layouts/application.html.erb.
+# For example:
+
+  <body>
+    <p class="notice"><%= notice %></p>
+    <p class="alert"><%= alert %></p>
+    <%= yield %>
+  </body>
+
+
+# Ensure you have overridden routes for generated controllers in your routes.rb.
+# For example:
+
+   Rails.application.routes.draw do
+     devise_for :users, controllers: {
+       sessions: 'users/sessions'
+     }
+   end
+
+```
+
+#### Rails db:migrate (devise)
+
+```
+rails db:migrate
+== 20160823045943 DeviseCreateUsers: migrating ================================
+-- create_table(:users)
+   -> 0.0307s
+-- add_index(:users, :email, {:unique=>true})
+   -> 0.0035s
+-- add_index(:users, :reset_password_token, {:unique=>true})
+   -> 0.0043s
+== 20160823045943 DeviseCreateUsers: migrated (0.0387s) =======================
+```
+
+#### Verify Devise is Installed & Configured
+
+```
+rails server
+```
+
+Go To [URL localhost:3000/users/sign_up](http://localhost:3000/users/sign_up)
+Go To [URL localhost:3000/users/sign_in](http://localhost:3000/users/sign_in)
+Go To [URL http://localhost:3000/users/password/new](http://localhost:3000/users/password/new)
