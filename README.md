@@ -2,8 +2,19 @@
 
 ## Motivation
 
-### What is Base Station?
-Base Station is the next generation DevOps Inspired IT Service Management Platform for Technology Teams.
+### What is BaseStation?
+BaseStation is a DevOps inspired API platform for technology teams who want to get more out of ChatOps and Microservices.  It is designed to be very lightweight, highly extensible, and uber efficient.
+
+#### CORE COMPONENTS
+
+*[Basestation Repository]* - A User, Endpoint, and HTTP Bearer Token Repository
+
+*[Basestation Hub]* - A Robust RESTful / WebHooks API Hub built on-top of Express.js
+
+*[Basestation Transceiver]* - A Node Process Daemon that when configured, communicates (receives/transmits) to the mothership (Basestation Hub) and runs Webhooks APIs on Device Endpoints which integrate with Basestation Hub API using HTTP Bearer Tokens.
+
+*[Basestation AuthTokens]* - HTTP Bearer Tokens that are used to authenticate Stateless / Sessionless API Requests to the Hub and to Endpoints.
+
 
 
 ### Start with WHY
@@ -11,9 +22,9 @@ Base Station was an idea that was developed over time after working for an inter
 
 We got to a point of visibility where we wanted to begin working with Higher Levels of Abstraction to Orchestrate more Complex Workflows and Processes (Events, Activities, and Services) across our entire Platform Infrastructure… which included our Office and Datacenter Environments… as well as our Ops Environment which had grown to include quite a few DevOps focused apps and services… (Chef, Hubot, Consul, Sensu, Terraform, Nexus, Jenkins, etc)
 
-We work primarily with Open Source Technology… which is what makes DevOps Great… and when looking at the OTS (off the shelf) Market and Community… we saw that there was something missing… a 100% open source platform that helps to seamlessly bring many of these capabilities together… and a platform that scales because it doesn't wind up costing you more than the infrastructure you are managing when you get out of the freemium tier.  (licenses by host, user, core, etc… yuck!)
+We work primarily with Open Source Technology… which is what makes DevOps Great… and when looking at the OTS (off the shelf) Market and Community… we saw that there was something missing to help us take our game to the next level… we needed a 100% open source platform that helps to seamlessly bring many of these capabilities together… and a platform that scales because it doesn't wind up costing you more than the infrastructure you are managing when you get out of the freemium tier.  (licenses by host, user, core, etc… yuck!)
 
-We're designing Base Station for scalability and flexibility for teams to integrate Base Station easily with your existing DevOps solutions, and potentially even sunset a few. (<cough> <cough> Shitty Service Desk Platforms... <cough> <cough>)
+We're designing BaseStation for scalability, flexibility, and performance.  We want teams to see the immediate value of integrating BaseStation with your existing DevOps and microservices solutions.
 
 Our Commitment...
 * 100% Open Source full stack, components and features!
@@ -30,32 +41,19 @@ Our Commitment...
 
 
 ### Who is Copyleft.io?
-- A collection of technology Hobbyists and Professionals
-- Like most Hobbyists we selfishly built Base Station primarily for ourselves, but we saw the immense value in it and wanted to share it with the community.
-- Copyleft.io designs and builds 100% open source solutions.  We hold nothing back.  We ship everything.
+- We are a seasoned collection of technology Professionals and Practitioners
+- Copyleft.io designs and builds 100% open source solutions. We hold nothing back. We ship everything.
 - We provide Hosting, Support, and Consulting Services for teams wishing to take their game to the next level and would like the benefit of our experience with DevOps Automation, Infrastructure as a Service, Environment as a Service, and Cloud Based Architecture.
 
 
 ## Prerequisites
-
-* ruby --version
-ruby 2.3.0p0 (2015-12-25 revision 53290)
-
-* rails --version
-Rails 5.0.0.1
-
-* bundle --version
-Bundler version 1.11.2
-
-* postgres --version
-psql (9.5.4)
-
-* redis-server --version
-Redis server v=3.2.3 sha=00000000:0 malloc=libc bits=64 build=ec5e6acb1f26de13
-
-
-* rbenv --version
-rbenv 0.4.0
+- Node.js (https://nodejs.org)
+- PM2 Node Process Manager (http://pm2.keymetrics.io/)
+- Express.js (https://expressjs.com/)
+- MongoDB (https://www.mongodb.com/)
+- Passport.js (http://passportjs.org/)
+- Passport HTTP Bearer (https://github.com/jaredhanson/passport-http-bearer)
+- EJS Embedded Javascript Templates (http://www.embeddedjs.com/)
 
 
 ## Documentation
