@@ -39,4 +39,8 @@ Rails.application.configure do
 
   # Raises error for missing translations
   # config.action_view.raise_on_missing_translations = true
+
+  # ActiveAdmin still requires inherited_resources gem
+  # To Disable This Functionality for Scaffolding we are adding these Configuration
+  config.app_generators.scaffold_controller = :scaffold_controller
 end

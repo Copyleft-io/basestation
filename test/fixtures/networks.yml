@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  uid: MyString
+  name: MyString
+  description: MyText
+  category: MyString
+  network_type: MyString
+  environment: one
+
+two:
+  uid: MyString
+  name: MyString
+  description: MyText
+  category: MyString
+  network_type: MyString
+  environment: two
