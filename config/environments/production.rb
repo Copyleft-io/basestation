@@ -83,4 +83,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # ActiveAdmin still requires inherited_resources gem
+  # To Disable This Functionality for Scaffolding we are adding these Configuration
+  config.app_generators.scaffold_controller = :scaffold_controller
 end

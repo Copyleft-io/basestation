@@ -56,4 +56,8 @@ Rails.application.configure do
   # is an example of default_url_options appropriate for a development environment
   # in config/environments/development.rb:
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
+
+  # ActiveAdmin still requires inherited_resources gem
+  # To Disable This Functionality for Scaffolding we are adding these Configuration
+  config.app_generators.scaffold_controller = :scaffold_controller
 end

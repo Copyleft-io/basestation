@@ -288,6 +288,27 @@ rails db:migrate
 rails server
 ```
 
-Go To [URL localhost:3000/users/sign_up](http://localhost:3000/users/sign_up)
-Go To [URL localhost:3000/users/sign_in](http://localhost:3000/users/sign_in)
-Go To [URL http://localhost:3000/users/password/new](http://localhost:3000/users/password/new)
+* Go To [URL localhost:3000/users/sign_up](http://localhost:3000/users/sign_up)
+* Go To [URL localhost:3000/users/sign_in](http://localhost:3000/users/sign_in)
+* Go To [URL http://localhost:3000/users/password/new](http://localhost:3000/users/password/new)
+
+#### STATIC_PAGES CONTROLLER
+
+```
+rails generate controller static_pages home about
+```
+
+Update routes.rb
+
+```
+# You can have the root of your site routed with "root"
+root 'static_pages#home'
+
+# MATCHED ROUTES
+match '/about', to: "static_pages#about", via: 'get'
+```
+
+
+#### SB ADMIN INTERFACE BOOTSTRAP THEME
+
+Add Wrapper, Navbar, and Page Wrapper to layouts/application.html.erb
