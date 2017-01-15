@@ -65,6 +65,9 @@ This is the beginning...
     # Install Morgan... a HTTP request logger middleware for node.js
     $ npm install morgan --save
 
+    # Install Connect-Flash... Flash Messages stored in Session
+    $ npm install connect-flash --save
+
     # Install Additional Express.js Dependencies that are not automatically shipped...
 
     # body-parser
@@ -93,3 +96,38 @@ We're going to use mlab for our development sandbox.
     # Create a sandbox mongodb Repository
     # Create a new user with read/write permissions
     # Get the URL Connection for the MongoDB and User
+
+
+#### Create Project Directory Structure
+
+    /basestation
+        /app
+            /modules
+                /base
+                    /config
+                        passport.js
+                    /models
+                        user.js
+                    /views
+                        /partials
+                            head.ejs
+                            header.ejs
+                        index.ejs
+                        login.ejs
+                        profile.ejs
+                        signup.ejs
+                    base.js  # module export of base.js
+        /config
+            database.js
+        /docs
+            build.md
+        /node_modules
+        /public
+            /images
+            /scripts
+            /styles
+        .gitignore
+        LICENSE
+        package.json
+        README.md
+        server.js  # main entry point to run our application
