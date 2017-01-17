@@ -1,4 +1,4 @@
-// app/modules/auth/user.js
+// app/modules/base/user.js
 
 // dependencies ================================================================
 // import all the required modules and middleware we need
