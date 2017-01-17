@@ -3,7 +3,7 @@
 // dependencies ================================================================
 // import all the required modules and middleware we need
 var mongoose     = require('mongoose');
-var randomstring = require("randomstring");
+var randomstring = require('randomstring');
 
 // define the schema for our endpoint model
 // baseToken = auth token to basestation
