@@ -2,15 +2,20 @@
 
 // dependencies ================================================================
 // import all the required modules and middleware we need
-var mongoose = require('mongoose');
-var bcrypt   = require('bcrypt-nodejs');
+var mongoose      = require('mongoose');
+var bcrypt        = require('bcrypt-nodejs');
+var randomstring  = require('randomstring');
 
 // define the schema for our user model
 var userSchema = mongoose.Schema({
 
+    name             : String,
     local            : {
         email        : String,
         password     : String
+    },
+    tokens           : {
+        baseToken    : String
     }
 
 });
@@ -19,6 +24,12 @@ var userSchema = mongoose.Schema({
 // generating a hash
 userSchema.methods.generateHash = function(password) {
     return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+};
+
+// generating a random token
+// default length is 32
+userSchema.methods.generateToken = function() {
+    return randomstring.generate();
 };
 
 // checking if password is valid
