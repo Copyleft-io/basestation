@@ -88,6 +88,10 @@ This is the beginning...
     #   - Create a session middleware with options.
     $ npm install express-session --save
 
+    # randomstring
+    #   - Generate a random token
+    $ npm install randomstring --save
+
 
 #### Create MongoDB Repository (mlab sandbox)
 We're going to use mlab for our development sandbox.
