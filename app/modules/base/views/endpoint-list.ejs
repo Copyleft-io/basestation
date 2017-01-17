@@ -7,10 +7,16 @@
     <header>
       <% include ./partials/header %>
     </header>
+    <!-- show any flash messages that come back -->
+    <% if (message.length > 0) { %>
+        <div class="alert alert-danger"><%= message %></div>
+    <% } %>
+
     <div class="jumbotron text-center">
         <h1><span class="fa fa-spinner"></span> BaseStation</h1>
 
-        <h1>Endpoints</h1>
+        <h1>Endpoint List</h1>
+
 
 </div>
 
