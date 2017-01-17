@@ -66,6 +66,16 @@ module.exports = function(app, passport) {
         req.logout();
         res.redirect('/');
     });
+
+
+    // =====================================
+    // ENDPOINT ============================
+    // =====================================
+    // we will want this protected so you have to be logged in to visit
+    // we will use route middleware to verify this (the isLoggedIn function)
+    app.get('/endpoints', isLoggedIn, function(req, res) {
+        res.render('endpoints.ejs');
+    });
 };
 
 // route middleware to make sure a user is logged in
