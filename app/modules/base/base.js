@@ -1,5 +1,9 @@
 // app/modules/base.js
 
+// load up the models
+var User            = require('./models/user.js');
+var Endpoint        = require('./models/endpoint.js');
+
 // export module ===============================================================
 module.exports = function(app, passport) {
 
@@ -74,7 +78,60 @@ module.exports = function(app, passport) {
     // we will want this protected so you have to be logged in to visit
     // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/endpoints', isLoggedIn, function(req, res) {
-        res.render('endpoints.ejs');
+        res.render('endpoint-list.ejs', { message: req.flash('successMessage') });
+    });
+    app.get('/endpoints/create', isLoggedIn, function(req, res) {
+        res.render('endpoint-create.ejs', { message: req.flash('errorMessage') });
+    });
+    app.post('/endpoints/create', isLoggedIn, function(req, res) {
+        // console.log(req.body);
+        // console.log('Name: ' + req.body.name);
+        // console.log('Type: ' + req.body.type);
+        // res.redirect('/endpoints');
+
+        var new_endpoint_name = req.body.name;
+        var new_endpoint_type = req.body.type;
+
+        // asynchronous
+        // User.findOne wont fire unless data is sent back
+        process.nextTick(function() {
+
+        // find a user whose email is the same as the forms email
+        // we are checking to see if the user trying to login already exists
+        Endpoint.findOne({ 'name' :  new_endpoint_name }, function(err, endpoint) {
+            // if there are any errors, return the error
+            if (err)
+                req.flash('errorMessage', err);
+
+            // check to see if theres already an endpoint with that name
+            if (endpoint) {
+                req.flash('errorMessage', 'That Endpoint already exists!');
+            } else {
+
+                // if there is no endpoint with that name
+                // create the endpoint
+                var newEndpoint            = new Endpoint();
+
+                // set the endpoints properties
+                newEndpoint.name    = new_endpoint_name;
+                newEndpoint.type    = new_endpoint_type;
+                newEndpoint.tokens.baseToken = newEndpoint.generateToken();
+                newEndpoint.tokens.remoteToken = newEndpoint.generateToken();
+
+                // save the endpoint
+                newEndpoint.save(function(err) {
+                    if (err) {
+                      req.flash('Error', err);
+                    } else {
+                      res.redirect('/endpoints');
+                      req.flash('successMessage', 'Endpoint: ' + newEndpoint.name + ' Created!');
+                    }
+                });
+            }
+
+        });
+
+      });
     });
 };
 
