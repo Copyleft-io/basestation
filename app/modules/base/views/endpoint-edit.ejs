@@ -1,0 +1,59 @@
+<!-- views/endpoints.ejs -->
+<!doctype html>
+<html>
+<% include ./partials/head %>
+<body>
+<div class="container">
+    <header>
+      <% include ./partials/header %>
+    </header>
+    <!-- show any flash messages that come back -->
+
+    <div class="col-sm-6 col-sm-offset-3">
+        <h2><span class="fa fa-server"></span> Endpoint</h2>
+
+        <!-- ENDPOINT VIEW FORM -->
+        <form action="/endpoints/edit/<%= endpoint._id %>" method="post">
+          <div class="form-group">
+              <label>ID</label>
+              <input type="text" class="form-control" name="id" value="<%= endpoint._id %>" >
+          </div>
+            <div class="form-group">
+                <label>Name</label>
+                <input type="text" class="form-control" name="name" value="<%= endpoint.name %>" >
+            </div>
+            <div class="form-group">
+                <label>Type</label>
+                <select class="form-control" name="type" value="<%= endpoint.type %>">
+                <% if (endpoint.type == 'Device') { %>
+                  <option selected="selected" value="Device">Device</option>
+                  <option value="Service">Service</option>
+                <% } else { %>
+                  <option value="Device">Device</option>
+                  <option selected="selected" value="Service">Service</option>
+                <% } %>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>baseToken</label>
+                <input type="textarea" class="form-control" name="baseToken" value="<%= endpoint.tokens.baseToken %>" readonly>
+                <label>
+                  <input type="checkbox" name="generateNewBaseToken" value="false">
+                    Generate New Token
+                </label>
+            </div>
+            <div class="form-group">
+                <label>remoteToken</label>
+                <input type="textarea" class="form-control" name="remoteToken" value="<%= endpoint.tokens.remoteToken %>" readonly>
+                <label>
+                  <input type="checkbox" name="generateNewRemoteToken" value="false">
+                    Generate New Token
+                </label>
+            </div>
+            <a class="btn btn-info btn-lg" href="/endpoints/<%= endpoint._id %>"><i class="fa fa-times"></i> Cancel</a> &nbsp;&nbsp;<button type="submit" class="btn btn-success btn-lg"><i class="fa fa-floppy-o"></i> Save</button>
+        </form>
+    </div>
+
+</div>
+</body>
+</html>

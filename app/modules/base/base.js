@@ -3,6 +3,7 @@
 // load up the models
 var User            = require('./models/user.js');
 var Endpoint        = require('./models/endpoint.js');
+var randomstring    = require('randomstring');
 
 // export module ===============================================================
 module.exports = function(app, passport) {
@@ -78,11 +79,65 @@ module.exports = function(app, passport) {
     // we will want this protected so you have to be logged in to visit
     // we will use route middleware to verify this (the isLoggedIn function)
     app.get('/endpoints', isLoggedIn, function(req, res) {
-        res.render('endpoint-list.ejs', { message: req.flash('successMessage') });
+        Endpoint.find({}, function(err, endpoints) {
+          var endpointMap = {};
+          endpoints.forEach(function(endpoint) {
+            endpointMap[endpoint._id] = endpoint;
+          })
+          console.log(endpointMap);
+          res.render('endpoint-list.ejs', { endpoints: endpoints });
+        });
     });
     app.get('/endpoints/create', isLoggedIn, function(req, res) {
         res.render('endpoint-create.ejs', { message: req.flash('errorMessage') });
     });
+    app.get('/endpoints/:id', isLoggedIn, function(req, res) {
+      Endpoint.findOne({ '_id' :  req.params.id }, function(err, endpoint) {
+        if (endpoint) {
+          res.render('endpoint-view.ejs', { endpoint: endpoint });
+        } else {
+          res.send(404, 'ENDPOINT NOT FOUND');
+        }
+      });
+    });
+    app.get('/endpoints/edit/:id', isLoggedIn, function(req, res) {
+      Endpoint.findOne({ '_id' :  req.params.id }, function(err, endpoint) {
+        if (endpoint) {
+          res.render('endpoint-edit.ejs', { endpoint: endpoint });
+        } else {
+          res.send(404, 'ENDPOINT NOT FOUND');
+        }
+      });
+    });
+    app.post('/endpoints/edit/:id', isLoggedIn, function(req, res) {
+       var query = { _id : req.params.id };
+       var baseTokenValue = req.body.baseToken;
+       var remoteTokenValue = req.body.remoteToken;
+
+       if (req.body.generateNewBaseToken) {
+         baseTokenValue = randomstring.generate();
+       }
+
+       if (req.body.generateNewRemoteToken) {
+         remoteTokenValue = randomstring.generate();
+       }
+
+       Endpoint.update( query ,{ $set: {
+         name: req.body.name,
+         type: req.body.type,
+         tokens: {
+          baseToken: baseTokenValue,
+          remoteToken: remoteTokenValue
+         }
+       }}, function(err){
+         if (err) {
+           console.log(err)
+         } else {
+          res.redirect("/endpoints/" + req.params.id);
+         }
+       });
+
+     });
     app.post('/endpoints/create', isLoggedIn, function(req, res) {
         // console.log(req.body);
         // console.log('Name: ' + req.body.name);
@@ -93,11 +148,11 @@ module.exports = function(app, passport) {
         var new_endpoint_type = req.body.type;
 
         // asynchronous
-        // User.findOne wont fire unless data is sent back
+        // Endpoint.findOne wont fire unless data is sent back
         process.nextTick(function() {
 
-        // find a user whose email is the same as the forms email
-        // we are checking to see if the user trying to login already exists
+        // find a endpoint whose name is the same as the forms name
+        // we are checking to see if the endpoint already exists
         Endpoint.findOne({ 'name' :  new_endpoint_name }, function(err, endpoint) {
             // if there are any errors, return the error
             if (err)
