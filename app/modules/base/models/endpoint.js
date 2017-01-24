@@ -13,7 +13,7 @@ var endpointSchema = mongoose.Schema({
     name             : String,
     type             : String,
     tokens           : {
-        baseToken  : String,
+        baseToken       : String,
         remoteToken     : String
     }
 

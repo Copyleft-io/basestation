@@ -8,14 +8,33 @@
       <% include ./partials/header %>
     </header>
     <!-- show any flash messages that come back -->
-    <% if (message.length > 0) { %>
-        <div class="alert alert-danger"><%= message %></div>
-    <% } %>
 
-    <div class="jumbotron text-center">
-        <h1><span class="fa fa-spinner"></span> BaseStation</h1>
+    <div>
 
-        <h1>Endpoint List</h1>
+        <h1><i class="fa fa-server"></i> Endpoints</h1>
+
+<table id="endpoints" class="table table-hover table-responsive" cellpadding="0" cellspacing="0" border="0" >
+<thead>
+  <tr>
+    <th>ID</th>
+    <th>Name</th>
+    <th>Type</th>
+    <th>Actions</th>
+  </tr>
+ </thead>
+ <tbody>
+   <% endpoints.forEach(function(endpoint) { %>
+       <tr>
+         <td><a href="/endpoints/<%= endpoint._id %>"><%= endpoint._id %></a></td>
+         <td><%= endpoint.name %></td>
+         <td><%= endpoint.type %></td>
+         <td>
+           <a class="btn btn-sm btn-info" href="/endpoints/<%= endpoint._id %>"><i class="fa fa-search"></i> View</a>
+           <a class="btn btn-sm btn-success" href="/endpoints/edit/<%= endpoint._id %>"><i class="fa fa-edit"></i> Edit</a>
+       </tr>
+   <% }); %>
+ </tbody>
+</table>
 
 
 </div>
